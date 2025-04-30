@@ -9,8 +9,9 @@ const alertVariants = cva(
     variants: {
       variant: {
         default: "bg-background text-foreground",
+        // Changed destructive to use accent color for warnings, or keep original if needed elsewhere
         destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+          "border-accent/50 text-accent dark:border-accent [&>svg]:text-accent", // Use accent color
       },
     },
     defaultVariants: {
