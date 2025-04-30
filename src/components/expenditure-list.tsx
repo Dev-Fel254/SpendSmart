@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/dialog"
 import { ExpenditureForm } from './expenditure-form';
 import { useState } from 'react';
+import { cn } from '@/lib/utils'; // Import cn utility
 
 interface ExpenditureListProps {
   expenditures: Expenditure[];
@@ -83,7 +84,7 @@ export function ExpenditureList({ expenditures, onDelete, onUpdate }: Expenditur
                 </span>
             </div>
             <span className="text-lg font-bold text-primary">
-              {exp.amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' })} {/* Adjust currency as needed */}
+              {exp.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })} {/* Updated currency */}
             </span>
           </CardHeader>
           <CardContent className="pt-0">

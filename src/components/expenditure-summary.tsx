@@ -44,10 +44,10 @@ const SummaryCard = ({
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold mb-2">
-          {total.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+          {total.toLocaleString(undefined, { style: 'currency', currency: 'KES' })} {/* Updated currency */}
           {target !== null && (
             <span className="text-sm font-normal text-muted-foreground ml-2">
-              / {target.toLocaleString(undefined, { style: 'currency', currency: 'USD' })} Target
+              / {target.toLocaleString(undefined, { style: 'currency', currency: 'KES' })} Target {/* Updated currency */}
             </span>
           )}
         </div>
@@ -55,8 +55,8 @@ const SummaryCard = ({
           <Progress value={progress} className={cn("h-2 mb-3", targetExceeded ? '[&>div]:bg-accent' : '')} />
         )}
         <div className="flex justify-between text-sm text-muted-foreground">
-          <span>Cash: {cash.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</span>
-          <span>Mobile: {mobileMoney.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</span>
+          <span>Cash: {cash.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</span> {/* Updated currency */}
+          <span>Mobile: {mobileMoney.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</span> {/* Updated currency */}
         </div>
       </CardContent>
     </Card>

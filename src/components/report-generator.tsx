@@ -242,10 +242,10 @@ export function ReportGenerator({ allExpenditures }: ReportGeneratorProps) {
                        <CardTitle className='text-lg font-semibold'>Summary</CardTitle>
                      </CardHeader>
                       <CardContent className="space-y-2">
-                         <p className="text-2xl font-bold">{totals.total.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                         <p className="text-2xl font-bold">{totals.total.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</p> {/* Updated currency */}
                          <div className="text-sm text-muted-foreground space-y-1">
-                             <p className="flex items-center gap-2"><CashIcon className="h-4 w-4"/> Cash: {totals.cash.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                             <p className="flex items-center gap-2"><MobileMoneyIcon className="h-4 w-4"/> Mobile Money: {totals.mobileMoney.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                             <p className="flex items-center gap-2"><CashIcon className="h-4 w-4"/> Cash: {totals.cash.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</p> {/* Updated currency */}
+                             <p className="flex items-center gap-2"><MobileMoneyIcon className="h-4 w-4"/> Mobile Money: {totals.mobileMoney.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</p> {/* Updated currency */}
                          </div>
                       </CardContent>
                    </Card>
@@ -267,7 +267,7 @@ export function ReportGenerator({ allExpenditures }: ReportGeneratorProps) {
                              <RechartsBarChart data={chartData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                <XAxis type="number" hide />
                                <YAxis dataKey="name" type="category" tickLine={false} axisLine={false} width={80} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                               <Tooltip cursor={{ fill: 'hsl(var(--muted))' }} contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', fontSize: '12px' }} formatter={(value: number) => value.toLocaleString(undefined, { style: 'currency', currency: 'USD' })} />
+                               <Tooltip cursor={{ fill: 'hsl(var(--muted))' }} contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', fontSize: '12px' }} formatter={(value: number) => value.toLocaleString(undefined, { style: 'currency', currency: 'KES' })} /> {/* Updated currency */}
                                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }}/>
                                <Bar dataKey="value" barSize={35} name="Amount" radius={[0, 4, 4, 0]}>
                                  {chartData.map((entry, index) => (
@@ -291,7 +291,7 @@ export function ReportGenerator({ allExpenditures }: ReportGeneratorProps) {
                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="hsl(var(--background))" strokeWidth={2}/>
                                  ))}
                                </Pie>
-                                <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', fontSize: '12px' }} formatter={(value: number) => value.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}/>
+                                <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', fontSize: '12px' }} formatter={(value: number) => value.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}/> {/* Updated currency */}
                                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} align="center" verticalAlign='bottom' />
                              </RechartsPieChart>
                            )}
@@ -326,13 +326,13 @@ export function ReportGenerator({ allExpenditures }: ReportGeneratorProps) {
                                 </TableCell>
                                 <TableCell className="text-muted-foreground">{exp.description || '-'}</TableCell>
                                 <TableCell className="text-right font-medium">
-                                {exp.amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                                {exp.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })} {/* Updated currency */}
                                 </TableCell>
                             </TableRow>
                             ))}
                             <TableRow className='bg-secondary hover:bg-secondary border-t-2 border-border'>
                                     <TableCell colSpan={3} className="font-semibold text-right">Total</TableCell>
-                                    <TableCell className="font-bold text-right">{totals.total.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</TableCell>
+                                    <TableCell className="font-bold text-right">{totals.total.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}</TableCell> {/* Updated currency */}
                                 </TableRow>
                         </TableBody>
                         </Table>

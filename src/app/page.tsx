@@ -39,7 +39,7 @@ export default function Home() {
     addExpenditure(data);
      toast({
       title: "Expenditure Added",
-      description: `Successfully added ${data.amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}.`,
+      description: `Successfully added ${data.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}.`, // Updated currency
     });
      setIsAddFormOpen(false); // Close sheet after adding
   };
@@ -57,7 +57,7 @@ export default function Home() {
      deleteExpenditure(id);
       toast({
       title: "Expenditure Deleted",
-      description: `Removed expenditure of ${expenditureToDelete?.amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}.`,
+      description: `Removed expenditure of ${expenditureToDelete?.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}.`, // Updated currency
       variant: "destructive"
     });
   }
