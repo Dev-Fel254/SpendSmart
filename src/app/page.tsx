@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Import useEffect
 import { ExpenditureForm } from '@/components/expenditure-form';
 import { TargetsForm } from '@/components/targets-form';
 import { ExpenditureList } from '@/components/expenditure-list';
@@ -10,7 +10,7 @@ import useExpenditures from '@/hooks/use-expenditures';
 import useTargets from '@/hooks/use-targets';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Settings, PlusCircle, AreaChart, List } from 'lucide-react';
+import { Settings, PlusCircle, AreaChart, List, Loader2 } from 'lucide-react'; // Import Loader2
 import { Toaster } from "@/components/ui/toaster"
 import { useToast } from "@/hooks/use-toast"
 import {
@@ -34,6 +34,12 @@ export default function Home() {
   const { toast } = useToast();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false); // State to track client-side rendering
+
+  useEffect(() => {
+    setIsClient(true); // Set to true once the component mounts on the client
+  }, []);
+
 
   const handleAddExpenditure = (data: Omit<Expenditure, 'id'>) => {
     addExpenditure(data);
@@ -53,13 +59,21 @@ export default function Home() {
   }
 
   const handleDeleteExpenditure = (id: string) => {
-     const expenditureToDelete = expenditures.find(exp => exp.id === id);
+     // Find expenditure before deleting to show amount in toast
+     const expenditureToDelete = expenditures?.find(exp => exp.id === id); // expenditures can be initial value
      deleteExpenditure(id);
-      toast({
-      title: "Expenditure Deleted",
-      description: `Removed expenditure of ${expenditureToDelete?.amount.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}.`, // Updated currency
-      variant: "destructive"
-    });
+     if (expenditureToDelete) {
+         toast({
+             title: "Expenditure Deleted",
+             description: `Removed expenditure of ${expenditureToDelete.amount.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}.`,
+             variant: "destructive"
+         });
+     } else {
+          toast({
+             title: "Expenditure Deleted",
+             variant: "destructive"
+         });
+     }
   }
 
   const handleSetTargets = (data: Targets) => {
@@ -70,6 +84,16 @@ export default function Home() {
     });
      setIsSettingsOpen(false); // Close sheet after setting targets
   };
+
+  // Render loading state or null until client is mounted and data is likely loaded
+  if (!isClient) {
+      return (
+          <div className="flex justify-center items-center min-h-screen">
+              <Loader2 className="h-16 w-16 animate-spin text-primary" />
+          </div>
+      );
+  }
+
 
   return (
     <div className="min-h-screen bg-secondary/40">
@@ -113,7 +137,8 @@ export default function Home() {
                     </SheetHeader>
                      <div className="py-4">
                         <h3 className="text-lg font-medium mb-4">Set Spending Targets</h3>
-                        <TargetsForm onSubmit={handleSetTargets} defaultValues={targets} />
+                        {/* Pass targets only when available */}
+                        <TargetsForm onSubmit={handleSetTargets} defaultValues={targets ?? undefined} />
                     </div>
                 </SheetContent>
             </Sheet>
@@ -121,8 +146,8 @@ export default function Home() {
       </header>
 
       <main className="container mx-auto p-4 sm:p-6 space-y-6">
-        {/* Summary Section */}
-        <ExpenditureSummary expenditures={expenditures} targets={targets} />
+        {/* Summary Section - Pass data only when available */}
+        <ExpenditureSummary expenditures={expenditures ?? []} targets={targets ?? { daily: null, weekly: null, monthly: null }} />
 
         {/* Tabs for List and Reports */}
         <Tabs defaultValue="list" className="w-full">
@@ -137,12 +162,14 @@ export default function Home() {
                     <CardDescription>View and manage your recorded spending.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <ExpenditureList expenditures={expenditures} onDelete={handleDeleteExpenditure} onUpdate={handleUpdateExpenditure}/>
+                     {/* Pass data only when available */}
+                    <ExpenditureList expenditures={expenditures ?? []} onDelete={handleDeleteExpenditure} onUpdate={handleUpdateExpenditure}/>
                 </CardContent>
             </Card>
           </TabsContent>
           <TabsContent value="reports">
-             <ReportGenerator allExpenditures={expenditures} />
+             {/* Pass data only when available */}
+             <ReportGenerator allExpenditures={expenditures ?? []} />
           </TabsContent>
         </Tabs>
 
