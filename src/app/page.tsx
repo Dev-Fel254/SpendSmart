@@ -39,7 +39,7 @@ export default function Home() {
     addExpenditure(data);
      toast({
       title: "Expenditure Added",
-      description: `Successfully added ${data.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}.`, // Updated currency
+      description: `Successfully added ${data.amount.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}.`, // Updated currency
     });
      setIsAddFormOpen(false); // Close sheet after adding
   };
@@ -57,7 +57,7 @@ export default function Home() {
      deleteExpenditure(id);
       toast({
       title: "Expenditure Deleted",
-      description: `Removed expenditure of ${expenditureToDelete?.amount.toLocaleString(undefined, { style: 'currency', currency: 'KES' })}.`, // Updated currency
+      description: `Removed expenditure of ${expenditureToDelete?.amount.toLocaleString('en-KE', { style: 'currency', currency: 'KES' })}.`, // Updated currency
       variant: "destructive"
     });
   }
@@ -74,12 +74,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-secondary/40">
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-4 border-b bg-background px-4 sm:px-6 shadow-sm">
-         <h1 className="text-xl font-semibold text-primary flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/>
-             </svg>
-            SpendSmart
-        </h1>
+         <div className="flex items-center gap-2">
+             {/* SS Logo */}
+             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xs">
+                 SS
+             </div>
+             <h1 className="text-xl font-semibold text-primary">
+                SpendSmart
+            </h1>
+         </div>
         <div className="flex items-center gap-2">
            <Sheet open={isAddFormOpen} onOpenChange={setIsAddFormOpen}>
                 <SheetTrigger asChild>
